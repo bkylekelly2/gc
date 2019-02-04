@@ -1,0 +1,519 @@
+/* start interactive map */
+/**
+ * Main Setup
+ */
+.image-clickable:focus {
+    outline: none;
+    outline: 0;
+}
+
+.image-clickable-main {
+    position: relative;
+    overflow: hidden;
+}
+
+.image-clickable-main img {
+    width: 100%;
+    height: 100%;
+}
+
+/**
+ * Image Overlay
+ */
+.image-clickable-overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 100%;
+    padding: 34px 60px;
+    background-color: rgba(255, 255, 255, .8);
+}
+
+@media (max-width: 480px) {
+    .image-clickable-overlay {
+        padding: 24px 45px;
+    }
+}
+
+.image-clickable-overlay.active {
+    left: 0;
+    animation-duration: .5s;
+    animation-name: image-clickable-slidein;
+    animation-timing-function: ease-out;
+    -webkit-animation-timing-function: ease-out;
+}
+
+@keyframes image-clickable-slidein {
+    0% {
+        left: 100%;
+    }
+
+    to {
+        left: 0%;
+    }
+}
+
+.image-clickable-overlay-images {
+    position: relative;
+    overflow: hidden;
+    height: 100%;
+}
+
+.image-clickable-overlay-image {
+    position: absolute;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    transition: left .15s;
+    border: 3px solid;
+}
+
+.image-clickable-overlay-image-figure_1_2_a,
+.image-clickable-overlay-image-figure_1_2_b,
+.image-clickable-overlay-image-figure_1_2_c {
+    border-color: #007181;
+}
+
+.image-clickable-overlay-image-figure_1_2_d,
+.image-clickable-overlay-image-figure_1_2_e,
+.image-clickable-overlay-image-figure_1_2_f {
+    border-color: #32c2cb;
+}
+
+.image-clickable-overlay-image-figure_1_2_g,
+.image-clickable-overlay-image-figure_1_2_h,
+.image-clickable-overlay-image-figure_1_2_i {
+    border-color: #a6bc31;
+}
+
+.image-clickable-overlay-image-figure_1_2_j,
+.image-clickable-overlay-image-figure_1_2_k,
+.image-clickable-overlay-image-figure_1_2_l {
+    border-color: #a15b21;
+}
+
+.image-clickable-overlay-image.active-image {
+    left: 0%;
+}
+
+.image-clickable-overlay-image.active-image ~ .image-clickable-overlay-image {
+    left: 100%;
+}
+
+.image-clickable-overlay-arrow-wrapper {
+    position: absolute;
+    top: 0;
+    width: 37px;
+    height: 100%;
+    padding: 40px 0;
+}
+
+.image-clickable-overlay-arrow-wrapper-left {
+    left: 0;
+}
+
+.image-clickable-overlay-arrow-wrapper-right {
+    right: 0;
+}
+
+.image-clickable-overlay-arrow-wrapper a {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 48px;
+    border-bottom: 0;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, .2);
+}
+
+.image-clickable-overlay-arrow-wrapper a:after {
+    position: absolute;
+    content: " ";
+    top: 50%;
+    left: 9px;
+    margin-top: -17px;
+    width: 19px;
+    height: 34px;
+    background-image: url('https://nca2018.globalchange.gov/interactives/1_2/bkgrd/arrows.png');
+    background-size: 39px 69px;
+    background-repeat: no-repeat;
+
+}
+
+.image-clickable-overlay-arrow-wrapper a:hover {
+    cursor: pointer;
+    outline: 3px solid rgba(30, 30, 30, .3);
+}
+
+.image-clickable-overlay-arrow-wrapper-left a:after {
+    background-position: 0 0;
+}
+
+.image-clickable-overlay-arrow-wrapper-left a.inactive:after {
+    background-position: 0 100%;
+}
+
+.image-clickable-overlay-arrow-wrapper-right a:after {
+    background-position: 100% 0;
+}
+
+.image-clickable-overlay-arrow-wrapper-right a.inactive:after {
+    background-position: 100% 100%;
+}
+
+.image-clickable-overlay-arrow-wrapper a.inactive {
+    color: #9e9e9e;
+    cursor: default;
+}
+
+.image-clickable-overlay-arrow-wrapper a.inactive:hover {
+    color: #9e9e9e;
+    cursor: default;
+    outline: none;
+}
+
+.image-clickable-overlay-dismiss {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 34px;
+    height: 34px;
+    padding: 3px 10px;
+    border-bottom: 0;
+    cursor: pointer;
+    background-image: url('https://nca2018.globalchange.gov/interactives/1_2/bkgrd/close.png');
+    background-size: 15px 15px;
+    background-position: 10px 10px;
+    background-repeat: no-repeat;
+    user-select: none;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -o-user-select: none;
+}
+
+.image-clickable-overlay-dismiss:hover {
+    outline: 3px solid rgba(30, 30, 30, .3);
+}
+
+/**
+ * General links
+ */
+.image-clickable-link:hover {
+    cursor: pointer;
+    outline: 3px solid rgba(30, 30, 30, .3);
+}
+
+/**
+ * Overlay links
+ */
+.image-clickable-link-overlay {
+    position: absolute;
+    border-bottom: 0;
+}
+
+.image-clickable-link-overlay-figure_1_2_a {
+    width: 14%;
+    height: 7%;
+    top: 19%;
+    left: 8%;
+}
+
+.image-clickable-link-overlay-figure_1_2_b {
+    width: 14%;
+    height: 8%;
+    top: 31%;
+    left: 26%;
+}
+
+.image-clickable-link-overlay-figure_1_2_c {
+    width: 15%;
+    height: 10%;
+    top: 16%;
+    left: 67%;
+}
+
+.image-clickable-link-overlay-figure_1_2_d {
+    width: 16%;
+    height: 9%;
+    top: 25%;
+    left: 83%;
+}
+
+.image-clickable-link-overlay-figure_1_2_e {
+    width: 10.5%;
+    height: 12%;
+    top: 54%;
+    left: 89%;
+}
+
+.image-clickable-link-overlay-figure_1_2_f {
+    width: 12%;
+    height: 9%;
+    top: 46%;
+    left: 4%;
+}
+
+.image-clickable-link-overlay-figure_1_2_g {
+    width: 12%;
+    height: 7%;
+    top: 47%;
+    left: 33%;
+}
+
+.image-clickable-link-overlay-figure_1_2_h {
+    width: 16%;
+    height: 9%;
+    top: 59%;
+    left: 21%;
+}
+
+.image-clickable-link-overlay-figure_1_2_i {
+    width: 20%;
+    height: 9%;
+    top: 74%;
+    left: 56%;
+}
+
+.image-clickable-link-overlay-figure_1_2_j {
+    width: 16%;
+    height: 8%;
+    top: 78%;
+    left: 30%;
+}
+
+.image-clickable-link-overlay-figure_1_2_k {
+    width: 12%;
+    height: 7%;
+    top: 59%;
+    left: 65%;
+}
+
+.image-clickable-link-overlay-figure_1_2_l {
+    width: 15%;
+    height: 8%;
+    top: 84%;
+    left: 4%;
+}
+
+/**
+ * Bottom button links
+ */
+.image-clickable-links-buttons {
+    margin-top: 12px;
+}
+
+.image-clickable-link-button {
+    position: relative;
+    display: inline-block;
+    width: 70px;
+    height: 42px;
+    margin-bottom: 12px;
+    margin-right: 8px;
+    border: 1px solid #aaa;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, .2);
+    color: #fff;
+    text-shadow: 0px 0px 2px black;
+    font-size: 20px;
+    line-height: 40px;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.image-clickable-link-button:last-child {
+    margin-right: 0;
+}
+
+.image-clickable-link-button:hover {
+    color: #fff;
+}
+
+.image-clickable-link-button:after {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    content: "";
+    background-color: rgba(0, 0, 0, .3);
+    z-index: -1;
+}
+
+.image-clickable-link-button:before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-size: cover;
+    background-repeat: no-repeat;
+    z-index: -2;
+}
+
+.image-clickable-link-button:hover:before {
+    background-color: rgba(0, 0, 0, .35);
+}
+
+.image-clickable-link-button-figure_1_2_a:before {
+    background-image: url("https://nca2018.globalchange.gov/interactives/1_2/figures/560/a_us-temp_560.jpg");
+}
+
+.image-clickable-link-button-figure_1_2_b:before {
+    background-image: url("https://nca2018.globalchange.gov/interactives/1_2/figures/560/b_heat-waves_560.jpg");
+}
+
+.image-clickable-link-button-figure_1_2_c:before {
+    background-image: url("https://nca2018.globalchange.gov/interactives/1_2/figures/560/c_us-heavy-precip_560.jpg");
+}
+
+.image-clickable-link-button-figure_1_2_d:before {
+    background-image: url("https://nca2018.globalchange.gov/interactives/1_2/figures/560/d_snowpack_560.jpg");
+}
+
+.image-clickable-link-button-figure_1_2_e:before {
+    background-image: url("https://nca2018.globalchange.gov/interactives/1_2/figures/560/e_drought-conditions_560.jpg");
+}
+
+.image-clickable-link-button-figure_1_2_f:before {
+    background-image: url("https://nca2018.globalchange.gov/interactives/1_2/figures/560/f_arctic-sea-ice_560.jpg");
+}
+
+.image-clickable-link-button-figure_1_2_g:before {
+    background-image: url("https://nca2018.globalchange.gov/interactives/1_2/figures/560/g_slr_560.jpg");
+}
+
+.image-clickable-link-button-figure_1_2_h:before {
+    background-image: url("https://nca2018.globalchange.gov/interactives/1_2/figures/560/h_marine-species_560.jpg");
+}
+
+.image-clickable-link-button-figure_1_2_i:before {
+    background-image: url("https://nca2018.globalchange.gov/interactives/1_2/figures/560/i_ocean-acidity_560.jpg");
+}
+
+.image-clickable-link-button-figure_1_2_j:before {
+    background-image: url("https://nca2018.globalchange.gov/interactives/1_2/figures/560/j_growing-season_560.jpg");
+}
+
+.image-clickable-link-button-figure_1_2_k:before {
+    background-image: url("https://nca2018.globalchange.gov/interactives/1_2/figures/560/k_wildfires_560.jpg");
+}
+
+.image-clickable-link-button-figure_1_2_l:before {
+    background-image: url("https://nca2018.globalchange.gov/interactives/1_2/figures/560/l_degree-days_560.jpg");
+}
+
+/**
+ * TODO: Remove everything below this if bottom buttons are okayed.
+ */
+.image-clickable-side-links {
+    width: 45px;
+    text-align: center;
+    position: absolute;
+    top: 9.7%;
+    right: 0;
+}
+
+.image-clickable-side-links a {
+    position: relative;
+    display: block;
+    width: 43px;
+    height: 28px;
+    margin-bottom: 4px;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, .2);
+    color: #fff;
+    text-shadow: 0px 0px 2px black;
+    font-size: 20px;
+    line-height: 28px;
+}
+
+.image-clickable-side-links a:after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-size: cover;
+    background-repeat: no-repeat;
+    z-index: -2;
+}
+
+.image-clickable-side-links a:before {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    content: "";
+    background-color: rgba(0, 0, 0, .3);
+    z-index: -1;
+}
+
+.image-clickable-side-links a:hover:before {
+    background-color: rgba(0, 0, 0, .35);
+}
+
+.image-clickable-overlay-side {
+    width: 98%;
+}
+
+
+
+
+.image-clickable-main-side {
+    padding-right: 45px;
+}
+
+.figure_1_2_a_link:after {
+    background-image: url("https://nca2018.globalchange.gov/interactives/1_2/figures/figure1_2_a.jpg");
+}
+
+.figure_1_2_b_link:after {
+    background-image: url("https://nca2018.globalchange.gov/interactives/1_2/figures/figure1_2_b.jpg");
+}
+
+.figure_1_2_c_link:after {
+    background-image: url("https://nca2018.globalchange.gov/interactives/1_2/figures/figure1_2_c.jpg");
+}
+
+.figure_1_2_d_link:after {
+    background-image: url("https://nca2018.globalchange.gov/interactives/1_2/figures/figure1_2_d.jpg");
+}
+
+.figure_1_2_e_link:after {
+    background-image: url("https://nca2018.globalchange.gov/interactives/1_2/figures/figure1_2_e.jpg");
+}
+
+.figure_1_2_f_link:after {
+    background-image: url("https://nca2018.globalchange.gov/interactives/1_2/figures/figure1_2_f.jpg");
+}
+
+.figure_1_2_g_link:after {
+    background-image: url("https://nca2018.globalchange.gov/interactives/1_2/figures/figure1_2_g.jpg");
+}
+
+.figure_1_2_h_link:after {
+    background-image: url("https://nca2018.globalchange.gov/interactives/1_2/figures/figure1_2_h.jpg");
+}
+
+.figure_1_2_i_link:after {
+    background-image: url("https://nca2018.globalchange.gov/interactives/1_2/figures/figure1_2_i.jpg");
+}
+
+.figure_1_2_j_link:after {
+    background-image: url("https://nca2018.globalchange.gov/interactives/1_2/figures/figure1_2_j.jpg");
+}
+
+.figure_1_2_k_link:after {
+    background-image: url("https://nca2018.globalchange.gov/interactives/1_2/figures/figure1_2_k.jpg");
+}
+
+.figure_1_2_l_link:after {
+    background-image: url("https://nca2018.globalchange.gov/interactives/1_2/figures/figure1_2_l.jpg");
+}

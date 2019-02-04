@@ -1,0 +1,7 @@
+name = GlobalChange Indicators Custom
+description = This module provides /explore/indicators, /browse/indicators, and /browse/indicators/{nodeID}.
+core = 7.x
+package = GlobalChange
+version = "7.x-2.x-dev"
+project = "globalchange"
+datestamp = "22:37:00 26/Nov/2018"

@@ -1,0 +1,142 @@
+<?php
+
+/**
+ * Implements hook_menu().
+ */
+function globalchange_indicators_custom_menu()
+{
+    $items['browse/indicators/catalog'] = array(
+        'title' => 'USGCRP Indicators Catalog',
+        'page callback' => 'globalchange_indicators_custom_catalog_function',
+        'access arguments' => array('access content'),
+    );
+
+    $items['browse/indicators'] = array(
+        'title' => 'USGCRP Indicators',
+        'page callback' => 'globalchange_indicators_custom_main_function',
+        'access arguments' => array('access content'),
+    );
+
+    $items['browse/indicator-details/%'] = array(
+        'title' => 'USGCRP Indicator Details',
+        'page callback' => 'globalchange_indicators_custom_details_function',
+        'access arguments' => array('access content'),
+    );
+
+    $items['browse/indicator-interactive_graph/%'] = array(
+        'title' => 'USGCRP Indicator Interactve Graph',
+        'page callback' => 'get_interactive_graph',
+        'access arguments' => array('access content'),
+    );
+    return $items;
+}
+
+/*
+ * Returns custom content to Drupal
+ */
+
+function get_string_between($string, $start, $end){
+    $string = " ".$string;
+    $ini = strpos($string,$start);
+    if ($ini == 0) return "";
+    $ini += strlen($start);
+    $len = strpos($string,$end,$ini) - $ini;
+    return substr($string,$ini,$len);
+}
+
+function get_interactive_graph(){
+
+
+    $path_args = arg();
+    $nid = $path_args[2];
+    $node = node_load($nid);
+    if ( is_object( $node ) ) {
+        $node = get_object_vars($node);
+    }
+    $tableau = $node['field_tableau_embed']['und'][0]['safe_value'];
+    $start = '<!--';
+    $end = '//-->';
+
+    $mystring = $tableau;
+    $findme   = $start;
+    $pos_start = strpos($mystring, $findme);
+
+
+    $mystring = $tableau;
+    $findme   = $end;
+    $pos_end = strpos($mystring, $findme);
+
+    if ( ($pos_start === false) && ($pos_end === false) ) {
+    //leave tableau the same
+    } else {
+        $tableau = get_string_between($tableau, $start, $end);
+    }
+
+
+
+
+?>
+<!DOCTYPE html>
+
+<head>
+    <title>USGCRP Indicator Interactive Graph</title>
+    <script src="/misc/jquery.js?v=1.4.4"></script>
+    <script src="/misc/jquery.once.js?v=1.2"></script>
+</head>
+
+<body>
+<?php echo $tableau; ?>
+</body>
+
+</html>
+
+<?php }
+
+
+function globalchange_indicators_custom_catalog_function(){
+
+    return theme('globalchange_indicators_custom_catalog_template');
+
+}
+function globalchange_indicators_custom_main_function(){
+
+    return theme('globalchange_indicators_custom_main_template');
+
+}
+function globalchange_indicators_custom_details_function(){
+
+    return theme('globalchange_indicators_custom_details_template');
+
+}
+
+
+function globalchange_indicators_custom_theme(){
+    return array(
+        'globalchange_indicators_custom_catalog_template' => array(
+            // template file name will be globalchange-indicators-custom-catalog-page.tpl.php
+            'template' => 'globalchange-indicators-custom-catalog-page',
+        ),
+        'globalchange_indicators_custom_main_template' => array(
+            // template file name will be globalchange-indicators-custom-main-page.tpl.php
+            'template' => 'globalchange-indicators-custom-main-page',
+        ),
+        'globalchange_indicators_custom_details_template' => array(
+            // template file name will be globalchange-indicators-custom-details-page.tpl.php
+            'template' => 'globalchange-indicators-custom-details-page',
+        ),
+
+    );
+
+}
+
+
+function gc_objectToArray( $data ) {
+    $d = "";
+
+    if ( is_object( $data ) )
+
+        $d = get_object_vars( $data );
+
+    return $d;
+
+}
